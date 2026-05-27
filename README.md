@@ -1,2 +1,17 @@
-# Skill-academic-keyword-card-generator
-AI academic keyword card generator
+# AI 學術關鍵字卡產生器
+
+## 專案介紹
+
+本專案可將學術關鍵字自動整理成學習卡片。
+
+## 使用工具
+
+- Python
+- Pandas
+- GitHub
+
+## 功能
+
+- 產生關鍵字卡片
+- 輸出 CSV
+- 協助學習
