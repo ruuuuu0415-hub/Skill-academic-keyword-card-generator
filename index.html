@@ -423,13 +423,12 @@ Big Data Analytics"></textarea>
         application: "可應用於需求預測、品質檢測、影像辨識與智慧製造。",
         report: "機器學習能從大量資料中找出潛在模式，進一步提升預測與決策能力。"
       },
-      "Deep Learning": {
-        chinese: "深度學習",
-        explain: "機器學習的一個分支，透過多層神經網路學習資料中的複雜特徵。",
-        application: "常用於影像辨識、自然語言處理、語音辨識與智慧製造檢測。",
-        report: "深度學習適合處理高維度與非線性資料，可提升模型對複雜問題的表現。"
-      }
-    };
+     "Deep Learning": {
+  chinese: "深度學習",
+  explain: "機器學習的一個分支，透過多層神經網路學習資料中的複雜特徵。",
+  application: "常用於影像辨識、自然語言處理、語音辨識與智慧製造檢測。",
+  report: "深度學習適合處理高維度與非線性資料，可提升模型對複雜問題的表現。"
+},
     "Decision Tree": {
   chinese: "決策樹",
   explain: "一種以樹狀結構進行分類或預測的機器學習方法，透過條件分支將資料逐步分類。",
@@ -549,7 +548,9 @@ Big Data Analytics"></textarea>
   explain: "透過分析與調整作業流程，降低浪費、提升效率與改善品質的管理方法。",
   application: "常用於製造流程、服務流程、品質管理與營運改善。",
   report: "流程改善能協助組織找出瓶頸與浪費，進一步提升整體作業效率。"
-}
+};
+
+function calculateScore(keywords, field, note) {
 
     function calculateScore(keywords, field, note) {
       let score = 0;
