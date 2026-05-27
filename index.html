@@ -2,506 +2,541 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Academic Keyword Card Generator</title>
-   <style>
-  * {
-    box-sizing: border-box;
-  }
 
-  body {
-    font-family: "Microsoft JhengHei", "Noto Sans TC", Arial, sans-serif;
-    background:
-      radial-gradient(circle at top left, #dbeafe 0, transparent 35%),
-      linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
-    margin: 0;
-    padding: 0;
-    color: #1e293b;
-  }
-
-  header {
-    background: linear-gradient(135deg, #1e3a8a, #4f46e5, #7c3aed);
-    color: white;
-    padding: 56px 24px;
-    text-align: center;
-  }
-
-  header h1 {
-    margin: 0;
-    font-size: 42px;
-    letter-spacing: 0.5px;
-  }
-
-  header p {
-    max-width: 760px;
-    margin: 16px auto 0;
-    font-size: 18px;
-    line-height: 1.8;
-    opacity: 0.95;
-  }
-
-  .container {
-    max-width: 1180px;
-    margin: -32px auto 40px;
-    padding: 0 20px;
-  }
-
-  .card {
-    background: rgba(255, 255, 255, 0.94);
-    border: 1px solid rgba(148, 163, 184, 0.35);
-    border-radius: 22px;
-    padding: 28px;
-    margin-bottom: 24px;
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.10);
-    backdrop-filter: blur(8px);
-  }
-
-  .intro-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-top: 18px;
-  }
-
-  .mini-card {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 18px;
-    padding: 18px;
-  }
-
-  .mini-card strong {
-    display: block;
-    color: #3730a3;
-    margin-bottom: 8px;
-    font-size: 17px;
-  }
-
-  h2 {
-    margin-top: 0;
-    color: #111827;
-    font-size: 24px;
-    border-left: 6px solid #4f46e5;
-    padding-left: 12px;
-  }
-
-  label {
-    display: block;
-    font-weight: 700;
-    margin-top: 16px;
-    margin-bottom: 8px;
-    color: #334155;
-  }
-
-  textarea,
-  select,
-  input {
-    width: 100%;
-    padding: 13px 14px;
-    border: 1px solid #cbd5e1;
-    border-radius: 14px;
-    font-size: 15px;
-    background: #ffffff;
-    color: #1e293b;
-    outline: none;
-    transition: 0.2s ease;
-  }
-
-  textarea:focus,
-  select:focus,
-  input:focus {
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
-  }
-
-  textarea {
-    min-height: 150px;
-    resize: vertical;
-  }
-
-  .main-grid {
-    display: grid;
-    grid-template-columns: 0.95fr 1.05fr;
-    gap: 24px;
-    align-items: start;
-  }
-
-  .checkbox-group {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px 14px;
-    margin-top: 10px;
-  }
-
-  .checkbox-group label {
-    margin: 0;
-    font-weight: 500;
-    background: #f8fafc;
-    padding: 12px;
-    border-radius: 14px;
-    border: 1px solid #e2e8f0;
-  }
-
-  button {
-    padding: 12px 18px;
-    margin: 8px 6px 8px 0;
-    border: none;
-    border-radius: 999px;
-    background: linear-gradient(135deg, #4f46e5, #7c3aed);
-    color: white;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 10px 20px rgba(79, 70, 229, 0.25);
-    transition: 0.2s ease;
-  }
-
-  button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 14px 24px rgba(79, 70, 229, 0.32);
-  }
-
-  .secondary {
-    background: #475569;
-    box-shadow: 0 10px 20px rgba(71, 85, 105, 0.18);
-  }
-
-  .danger {
-    background: #dc2626;
-    box-shadow: 0 10px 20px rgba(220, 38, 38, 0.20);
-  }
-
-  .score {
-    display: inline-block;
-    font-size: 30px;
-    font-weight: 800;
-    color: #047857;
-    background: #ecfdf5;
-    border: 1px solid #a7f3d0;
-    padding: 12px 20px;
-    border-radius: 16px;
-  }
-
-  .result-box {
-    background: #0f172a;
-    color: #e5e7eb;
-    border-radius: 18px;
-    padding: 24px;
-    min-height: 420px;
-    white-space: pre-wrap;
-    line-height: 1.9;
-    font-size: 15px;
-    overflow-x: auto;
-    border: 1px solid rgba(255,255,255,0.12);
-  }
-
-  footer {
-    text-align: center;
-    padding: 28px 20px;
-    color: #64748b;
-    font-size: 14px;
-  }
-
-  @media (max-width: 900px) {
-    header h1 {
-      font-size: 32px;
+  <style>
+    * {
+      box-sizing: border-box;
     }
 
-    .main-grid,
-    .intro-grid {
-      grid-template-columns: 1fr;
+    body {
+      font-family: "Microsoft JhengHei", "Noto Sans TC", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #2d3748;
+      background:
+        radial-gradient(circle at top left, rgba(255, 143, 171, 0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(108, 99, 255, 0.15), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(123, 220, 181, 0.18), transparent 25%),
+        #f8faff;
+    }
+
+    header {
+      background: linear-gradient(135deg, #6c63ff, #8b80ff, #ff8fab);
+      color: white;
+      text-align: center;
+      padding: 56px 20px 46px;
+      box-shadow: 0 8px 24px rgba(108, 99, 255, 0.22);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    header p {
+      max-width: 780px;
+      margin: 14px auto 0;
+      font-size: 17px;
+      line-height: 1.8;
+      opacity: 0.96;
     }
 
     .container {
-      margin-top: -20px;
+      max-width: 1180px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 22px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 12px 32px rgba(80, 90, 140, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 24px;
+      color: #4a4e69;
+      border-left: 8px solid #6c63ff;
+      padding-left: 12px;
+    }
+
+    p {
+      line-height: 1.8;
+    }
+
+    .tag-row {
+      margin-top: 14px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 8px 14px;
+      margin: 6px 8px 0 0;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #4a4e69;
+      background: #f3f4ff;
+    }
+
+    .tag.pink {
+      background: #ffe8f0;
+    }
+
+    .tag.green {
+      background: #e8fbf3;
+    }
+
+    .tag.yellow {
+      background: #fff7db;
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .mini-card {
+      border-radius: 18px;
+      padding: 18px;
+      line-height: 1.7;
+      color: #3d405b;
+      font-size: 15px;
+    }
+
+    .mini-card:nth-child(1) {
+      background: #eef0ff;
+    }
+
+    .mini-card:nth-child(2) {
+      background: #fff0f5;
+    }
+
+    .mini-card:nth-child(3) {
+      background: #eefcf6;
+    }
+
+    .mini-card strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 17px;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-top: 15px;
+      margin-bottom: 8px;
+      color: #4a5568;
+    }
+
+    textarea,
+    select,
+    input {
+      width: 100%;
+      padding: 13px 15px;
+      border: 2px solid #e6e8f5;
+      border-radius: 14px;
+      font-size: 15px;
+      background: white;
+      color: #2d3748;
+      transition: all 0.2s ease;
+    }
+
+    textarea:focus,
+    select:focus,
+    input:focus {
+      outline: none;
+      border-color: #8b80ff;
+      box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.10);
+    }
+
+    textarea {
+      min-height: 160px;
+      resize: vertical;
     }
 
     .checkbox-group {
-      grid-template-columns: 1fr;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 8px;
     }
-  }
-</style>
+
+    .checkbox-group label {
+      background: #f9f9ff;
+      border: 1px solid #ecebff;
+      border-radius: 14px;
+      padding: 12px;
+      margin: 0;
+      font-weight: 500;
+      color: #4a4e69;
+    }
+
+    button {
+      padding: 12px 18px;
+      margin: 8px 8px 8px 0;
+      border: none;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      color: white;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+
+    .primary {
+      background: linear-gradient(135deg, #6c63ff, #8b80ff);
+      box-shadow: 0 8px 16px rgba(108, 99, 255, 0.22);
+    }
+
+    .secondary {
+      background: linear-gradient(135deg, #ff8fab, #ffb3c6);
+      box-shadow: 0 8px 16px rgba(255, 143, 171, 0.20);
+    }
+
+    .green {
+      background: linear-gradient(135deg, #7bdcb5, #53c8a6);
+      box-shadow: 0 8px 16px rgba(123, 220, 181, 0.22);
+    }
+
+    .gray {
+      background: linear-gradient(135deg, #7b8794, #9aa5b1);
+      box-shadow: 0 8px 16px rgba(123, 135, 148, 0.18);
+    }
+
+    .score {
+      display: inline-block;
+      font-size: 30px;
+      font-weight: 800;
+      color: #6c63ff;
+      background: #f1efff;
+      padding: 12px 22px;
+      border-radius: 18px;
+      border: 2px dashed #c6c1ff;
+    }
+
+    .result-box {
+      background: linear-gradient(180deg, #fffdfd, #fefcff);
+      border: 2px solid #f0eaff;
+      border-radius: 18px;
+      padding: 22px;
+      white-space: pre-wrap;
+      line-height: 1.9;
+      min-height: 420px;
+      font-size: 15px;
+      color: #374151;
+    }
+
+    footer {
+      text-align: center;
+      padding: 28px 20px;
+      color: #7a7f9a;
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .main-grid,
+      .intro-grid,
+      .checkbox-group {
+        grid-template-columns: 1fr;
+      }
+
+      header h1 {
+        font-size: 30px;
+      }
+
+      header p {
+        font-size: 15px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
-  <h1>AI Academic Keyword Card Generator</h1>
-  <p>學術關鍵字卡片產生器｜輸入專業術語，一鍵產生中文解釋、應用情境與報告輔助內容</p>
-</header>
+  <header>
+    <h1>📚 AI Academic Keyword Card Generator</h1>
+    <p>學術關鍵字卡片產生器｜讓專業術語整理變得更輕鬆、更有趣 ✨</p>
+  </header>
 
-<div class="container">
-
-  <div class="card">
-    <h2>工具介紹</h2>
-    <p>
-      本工具是一個學術關鍵字卡片產生器，協助使用者將課堂、報告或研究中常見的專業術語，
-      快速整理成「中文名稱、名詞解釋、應用情境、報告可用句型」。
-    </p>
-
-    <div class="intro-grid">
-      <div class="mini-card">
-        <strong>Step 1｜輸入關鍵字</strong>
-        每行輸入一個學術術語，例如 ANOVA、Regression、Optimization。
-      </div>
-      <div class="mini-card">
-        <strong>Step 2｜選擇需求</strong>
-        選擇課程領域與需要輸出的內容類型。
-      </div>
-      <div class="mini-card">
-        <strong>Step 3｜產生結果</strong>
-        系統會產生可用於報告、簡報與複習的關鍵字卡片。
-      </div>
-    </div>
-  </div>
-
-  <div class="main-grid">
+  <div class="container">
 
     <div class="card">
-      <h2>輸入設定</h2>
+      <h2>💡 工具介紹</h2>
+      <p>
+        本工具是一個學術關鍵字卡片產生器，協助使用者將課堂、報告或研究中常見的專業術語，
+        快速整理成「中文名稱、名詞解釋、應用情境、報告可用句型」。
+      </p>
 
-      <label>請輸入學術關鍵字，每行一個</label>
-      <textarea id="keywords" placeholder="例如：
+      <div class="tag-row">
+        <span class="tag">📘 學術整理</span>
+        <span class="tag pink">🧠 AI 輔助</span>
+        <span class="tag green">📝 報告寫作</span>
+        <span class="tag yellow">✨ 關鍵字卡片</span>
+      </div>
+
+      <div class="intro-grid">
+        <div class="mini-card">
+          <strong>📝 Step 1｜輸入關鍵字</strong>
+          每行輸入一個學術名詞，例如 ANOVA、Regression、Optimization。
+        </div>
+        <div class="mini-card">
+          <strong>🎯 Step 2｜選擇需求</strong>
+          依照你的課程、報告用途與輸出需求，決定要顯示哪些內容。
+        </div>
+        <div class="mini-card">
+          <strong>✨ Step 3｜產生結果</strong>
+          系統將輸出結構化內容，方便直接用於報告、簡報與複習。
+        </div>
+      </div>
+    </div>
+
+    <div class="main-grid">
+
+      <div class="card">
+        <h2>🛠 輸入設定</h2>
+
+        <label for="keywords">請輸入學術關鍵字，每行一個</label>
+        <textarea id="keywords" placeholder="例如：
 ANOVA
 Regression
 Optimization
 Supply Chain
 Machine Learning"></textarea>
 
-      <label>課程或應用領域</label>
-      <select id="field">
-        <option value="">請選擇</option>
-        <option value="統計分析">統計分析</option>
-        <option value="作業研究">作業研究</option>
-        <option value="供應鏈管理">供應鏈管理</option>
-        <option value="人工智慧">人工智慧</option>
-        <option value="一般學術報告">一般學術報告</option>
-      </select>
+        <label for="field">課程或應用領域</label>
+        <select id="field">
+          <option value="">請選擇</option>
+          <option value="統計分析">統計分析</option>
+          <option value="作業研究">作業研究</option>
+          <option value="供應鏈管理">供應鏈管理</option>
+          <option value="人工智慧">人工智慧</option>
+          <option value="一般學術報告">一般學術報告</option>
+        </select>
 
-      <label>輸出需求</label>
-      <div class="checkbox-group">
-        <label><input type="checkbox" id="needChinese" checked> 中文名稱</label>
-        <label><input type="checkbox" id="needExplain" checked> 名詞解釋</label>
-        <label><input type="checkbox" id="needApplication" checked> 應用情境</label>
-        <label><input type="checkbox" id="needReport" checked> 報告句型</label>
+        <label>輸出需求</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" id="needChinese" checked> 中文名稱</label>
+          <label><input type="checkbox" id="needExplain" checked> 名詞解釋</label>
+          <label><input type="checkbox" id="needApplication" checked> 應用情境</label>
+          <label><input type="checkbox" id="needReport" checked> 報告句型</label>
+        </div>
+
+        <label for="note">特殊需求</label>
+        <input type="text" id="note" placeholder="例如：請用適合課堂報告的語氣說明">
+
+        <br><br>
+
+        <button class="primary" onclick="generateCards()">產生關鍵字卡片</button>
+        <button class="secondary" onclick="loadExample()">載入範例</button>
+        <button class="green" onclick="clearForm()">清除表單</button>
+        <button class="gray" onclick="copyResult()">複製結果</button>
+        <button class="gray" onclick="downloadTXT()">下載 TXT</button>
       </div>
 
-      <label>特殊需求</label>
-      <input type="text" id="note" placeholder="例如：請用適合課堂報告的語氣說明">
+      <div>
+        <div class="card">
+          <h2>📊 完整度評分</h2>
+          <p>系統會根據關鍵字數量、應用領域與特殊需求計算輸入完整度。</p>
+          <div class="score" id="score">0 / 100</div>
+        </div>
 
-      <br><br>
+        <div class="card">
+          <h2>🌈 結果輸出</h2>
+          <div id="result" class="result-box">尚未產生內容，請先輸入關鍵字並按下「產生關鍵字卡片」。</div>
+        </div>
+      </div>
 
-      <button onclick="generateCards()">產生關鍵字卡片</button>
-      <button class="secondary" onclick="loadExample()">載入範例</button>
-      <button class="danger" onclick="clearForm()">清除表單</button>
-      <button class="secondary" onclick="copyResult()">複製結果</button>
-      <button class="secondary" onclick="downloadTXT()">下載 TXT</button>
     </div>
-
-    <div>
-      <div class="card">
-        <h2>完整度評分</h2>
-        <p>系統會根據關鍵字數量、應用領域與特殊需求計算輸入完整度。</p>
-        <div class="score" id="score">0 / 100</div>
-      </div>
-
-      <div class="card">
-        <h2>結果輸出</h2>
-        <div id="result" class="result-box">尚未產生內容，請先輸入關鍵字並按下「產生關鍵字卡片」。</div>
-      </div>
-    </div>
-
   </div>
 
-</div>
+  <footer>
+    本作品為期末報告展示用，內容採規則式產生，可作為學術報告與關鍵字整理輔助工具。
+  </footer>
 
-    <label>特殊需求</label>
-    <input type="text" id="note" placeholder="例如：請用適合課堂報告的語氣、請偏向工管領域說明">
-
-    <br><br>
-
-    <button onclick="generateCards()">產生關鍵字卡片</button>
-    <button class="secondary" onclick="loadExample()">載入範例</button>
-    <button class="danger" onclick="clearForm()">清除表單</button>
-    <button class="secondary" onclick="copyResult()">複製結果</button>
-    <button class="secondary" onclick="downloadTXT()">下載 TXT</button>
-  </div>
-
-  <div class="card">
-    <h2>完整度評分</h2>
-    <p>系統會根據輸入內容計算目前資料完整度。</p>
-    <div class="score" id="score">0 / 100</div>
-  </div>
-
-  <div class="card">
-    <h2>結果輸出區</h2>
-    <div id="result" class="result-box">尚未產生內容，請先輸入關鍵字並按下「產生關鍵字卡片」。</div>
-  </div>
-
-</div>
-
-<footer>
-  本作品為期末報告展示用，內容採規則式產生，可作為學術報告與關鍵字整理輔助工具。
-</footer>
-
-<script>
-const database = {
-  "ANOVA": {
-    chinese: "變異數分析",
-    explain: "用來檢定不同組別平均數是否存在顯著差異的統計方法。",
-    application: "常用於實驗設計、品質管理與製程參數比較。",
-    report: "本研究可透過 ANOVA 檢定不同因子水準對結果是否具有顯著影響。"
-  },
-  "Regression": {
-    chinese: "迴歸分析",
-    explain: "用來分析自變數與應變數之間關係的統計方法。",
-    application: "可應用於預測分析、趨勢判斷與影響因素探討。",
-    report: "迴歸分析可用於建立變數之間的數學關係，進一步解釋影響結果的主要因素。"
-  },
-  "Optimization": {
-    chinese: "最佳化",
-    explain: "在限制條件下尋找最佳決策方案的方法。",
-    application: "常用於排程、物流路徑規劃、生產配置與資源分配。",
-    report: "最佳化方法可協助決策者在有限資源下尋找最有效率的解決方案。"
-  },
-  "Supply Chain": {
-    chinese: "供應鏈",
-    explain: "指從原物料、生產、運輸、倉儲到消費者之間的整體流程。",
-    application: "常見於物流管理、庫存控制、採購策略與企業營運管理。",
-    report: "供應鏈管理的重點在於提升整體流程效率，並降低成本與不確定性。"
-  },
-  "Machine Learning": {
-    chinese: "機器學習",
-    explain: "讓電腦從資料中學習規則，並進行預測、分類或決策的人工智慧技術。",
-    application: "可應用於需求預測、品質檢測、影像辨識與智慧製造。",
-    report: "機器學習能從大量資料中找出潛在模式，進一步提升預測與決策能力。"
-  },
-  "Deep Learning": {
-    chinese: "深度學習",
-    explain: "機器學習的一個分支，透過多層神經網路學習資料中的複雜特徵。",
-    application: "常用於影像辨識、自然語言處理、語音辨識與智慧製造檢測。",
-    report: "深度學習適合處理高維度與非線性資料，可提升模型對複雜問題的表現。"
-  }
-};
-
-function calculateScore(keywords, field, note) {
-  let score = 0;
-  if (keywords.length > 0) score += 40;
-  if (keywords.length >= 3) score += 20;
-  if (field !== "") score += 20;
-  if (note.trim() !== "") score += 10;
-  if (
-    document.getElementById("needChinese").checked ||
-    document.getElementById("needExplain").checked ||
-    document.getElementById("needApplication").checked ||
-    document.getElementById("needReport").checked
-  ) {
-    score += 10;
-  }
-  return Math.min(score, 100);
-}
-
-function generateCards() {
-  const keywordText = document.getElementById("keywords").value;
-  const field = document.getElementById("field").value;
-  const note = document.getElementById("note").value;
-
-  const needChinese = document.getElementById("needChinese").checked;
-  const needExplain = document.getElementById("needExplain").checked;
-  const needApplication = document.getElementById("needApplication").checked;
-  const needReport = document.getElementById("needReport").checked;
-
-  const keywords = keywordText
-    .split("\n")
-    .map(k => k.trim())
-    .filter(k => k !== "");
-
-  const score = calculateScore(keywords, field, note);
-  document.getElementById("score").innerText = score + " / 100";
-
-  if (keywords.length === 0) {
-    document.getElementById("result").innerText = "請至少輸入一個關鍵字。";
-    return;
-  }
-
-  let output = "";
-  output += "AI Academic Keyword Card Generator\n";
-  output += "學術關鍵字卡片產生結果\n";
-  output += "====================================\n\n";
-
-  output += "一、輸入條件\n";
-  output += "應用領域：" + (field || "未指定") + "\n";
-  output += "特殊需求：" + (note || "無") + "\n";
-  output += "完整度評分：" + score + " / 100\n\n";
-
-  output += "二、關鍵字卡片\n\n";
-
-  keywords.forEach((keyword, index) => {
-    const data = database[keyword] || {
-      chinese: "未建立資料",
-      explain: "目前資料庫尚未收錄此關鍵字，建議後續自行補充定義。",
-      application: "可依照課程主題或報告需求補充實際應用情境。",
-      report: "此關鍵字可作為報告中的重要概念，並搭配研究背景或方法進一步說明。"
+  <script>
+    const database = {
+      "ANOVA": {
+        chinese: "變異數分析",
+        explain: "用來檢定不同組別平均數是否存在顯著差異的統計方法。",
+        application: "常用於實驗設計、品質管理與製程參數比較。",
+        report: "本研究可透過 ANOVA 檢定不同因子水準對結果是否具有顯著影響。"
+      },
+      "Regression": {
+        chinese: "迴歸分析",
+        explain: "用來分析自變數與應變數之間關係的統計方法。",
+        application: "可應用於預測分析、趨勢判斷與影響因素探討。",
+        report: "迴歸分析可用於建立變數之間的數學關係，進一步解釋影響結果的主要因素。"
+      },
+      "Optimization": {
+        chinese: "最佳化",
+        explain: "在限制條件下尋找最佳決策方案的方法。",
+        application: "常用於排程、物流路徑規劃、生產配置與資源分配。",
+        report: "最佳化方法可協助決策者在有限資源下尋找最有效率的解決方案。"
+      },
+      "Supply Chain": {
+        chinese: "供應鏈",
+        explain: "指從原物料、生產、運輸、倉儲到消費者之間的整體流程。",
+        application: "常見於物流管理、庫存控制、採購策略與企業營運管理。",
+        report: "供應鏈管理的重點在於提升整體流程效率，並降低成本與不確定性。"
+      },
+      "Machine Learning": {
+        chinese: "機器學習",
+        explain: "讓電腦從資料中學習規則，並進行預測、分類或決策的人工智慧技術。",
+        application: "可應用於需求預測、品質檢測、影像辨識與智慧製造。",
+        report: "機器學習能從大量資料中找出潛在模式，進一步提升預測與決策能力。"
+      },
+      "Deep Learning": {
+        chinese: "深度學習",
+        explain: "機器學習的一個分支，透過多層神經網路學習資料中的複雜特徵。",
+        application: "常用於影像辨識、自然語言處理、語音辨識與智慧製造檢測。",
+        report: "深度學習適合處理高維度與非線性資料，可提升模型對複雜問題的表現。"
+      }
     };
 
-    output += "【" + (index + 1) + "】" + keyword + "\n";
+    function calculateScore(keywords, field, note) {
+      let score = 0;
 
-    if (needChinese) {
-      output += "中文名稱：" + data.chinese + "\n";
+      if (keywords.length > 0) score += 40;
+      if (keywords.length >= 3) score += 20;
+      if (field !== "") score += 20;
+      if (note.trim() !== "") score += 10;
+
+      const hasOption =
+        document.getElementById("needChinese").checked ||
+        document.getElementById("needExplain").checked ||
+        document.getElementById("needApplication").checked ||
+        document.getElementById("needReport").checked;
+
+      if (hasOption) score += 10;
+
+      return Math.min(score, 100);
     }
 
-    if (needExplain) {
-      output += "名詞解釋：" + data.explain + "\n";
+    function generateCards() {
+      const keywordText = document.getElementById("keywords").value;
+      const field = document.getElementById("field").value;
+      const note = document.getElementById("note").value;
+
+      const needChinese = document.getElementById("needChinese").checked;
+      const needExplain = document.getElementById("needExplain").checked;
+      const needApplication = document.getElementById("needApplication").checked;
+      const needReport = document.getElementById("needReport").checked;
+
+      const keywords = keywordText
+        .split("\n")
+        .map(k => k.trim())
+        .filter(k => k !== "");
+
+      const score = calculateScore(keywords, field, note);
+      document.getElementById("score").innerText = score + " / 100";
+
+      if (keywords.length === 0) {
+        document.getElementById("result").innerText = "請至少輸入一個關鍵字。";
+        return;
+      }
+
+      let output = "";
+      output += "AI Academic Keyword Card Generator\n";
+      output += "學術關鍵字卡片產生結果\n";
+      output += "====================================\n\n";
+
+      output += "一、輸入條件\n";
+      output += "應用領域：" + (field || "未指定") + "\n";
+      output += "特殊需求：" + (note || "無") + "\n";
+      output += "完整度評分：" + score + " / 100\n\n";
+
+      output += "二、關鍵字卡片\n\n";
+
+      keywords.forEach((keyword, index) => {
+        const data = database[keyword] || {
+          chinese: "未建立資料",
+          explain: "目前資料庫尚未收錄此關鍵字，建議後續自行補充定義。",
+          application: "可依照課程主題或報告需求補充實際應用情境。",
+          report: "此關鍵字可作為報告中的重要概念，並搭配研究背景或方法進一步說明。"
+        };
+
+        output += "【" + (index + 1) + "】" + keyword + "\n";
+
+        if (needChinese) {
+          output += "中文名稱：" + data.chinese + "\n";
+        }
+
+        if (needExplain) {
+          output += "名詞解釋：" + data.explain + "\n";
+        }
+
+        if (needApplication) {
+          output += "應用情境：" + data.application + "\n";
+        }
+
+        if (needReport) {
+          output += "報告可用句型：" + data.report + "\n";
+        }
+
+        output += "\n";
+      });
+
+      output += "三、使用建議\n";
+      output += "本結果可用於課堂報告、簡報製作、考前複習與專有名詞整理。";
+      output += "若要提升內容品質，可持續擴充內建關鍵字資料庫。\n";
+
+      document.getElementById("result").innerText = output;
     }
 
-    if (needApplication) {
-      output += "應用情境：" + data.application + "\n";
+    function loadExample() {
+      document.getElementById("keywords").value =
+        "ANOVA\nRegression\nOptimization\nSupply Chain\nMachine Learning";
+      document.getElementById("field").value = "一般學術報告";
+      document.getElementById("note").value = "請用適合課堂報告的語氣說明";
     }
 
-    if (needReport) {
-      output += "報告可用句型：" + data.report + "\n";
+    function clearForm() {
+      document.getElementById("keywords").value = "";
+      document.getElementById("field").value = "";
+      document.getElementById("note").value = "";
+      document.getElementById("score").innerText = "0 / 100";
+      document.getElementById("result").innerText =
+        "尚未產生內容，請先輸入關鍵字並按下「產生關鍵字卡片」。";
     }
 
-    output += "\n";
-  });
+    function copyResult() {
+      const result = document.getElementById("result").innerText;
+      navigator.clipboard.writeText(result);
+      alert("結果已複製");
+    }
 
-  output += "三、使用建議\n";
-  output += "本結果可用於課堂報告、簡報製作、考前複習與專有名詞整理。";
-  output += "若要提升內容品質，可持續擴充內建關鍵字資料庫。\n";
-
-  document.getElementById("result").innerText = output;
-}
-
-function loadExample() {
-  document.getElementById("keywords").value =
-    "ANOVA\nRegression\nOptimization\nSupply Chain\nMachine Learning";
-  document.getElementById("field").value = "一般學術報告";
-  document.getElementById("note").value = "請用適合課堂報告的語氣說明";
-}
-
-function clearForm() {
-  document.getElementById("keywords").value = "";
-  document.getElementById("field").value = "";
-  document.getElementById("note").value = "";
-  document.getElementById("score").innerText = "0 / 100";
-  document.getElementById("result").innerText =
-    "尚未產生內容，請先輸入關鍵字並按下「產生關鍵字卡片」。";
-}
-
-function copyResult() {
-  const result = document.getElementById("result").innerText;
-  navigator.clipboard.writeText(result);
-  alert("結果已複製");
-}
-
-function downloadTXT() {
-  const result = document.getElementById("result").innerText;
-  const blob = new Blob([result], { type: "text/plain;charset=utf-8" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = "academic_keyword_cards.txt";
-  link.click();
-}
-</script>
+    function downloadTXT() {
+      const result = document.getElementById("result").innerText;
+      const blob = new Blob([result], { type: "text/plain;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "academic_keyword_cards.txt";
+      link.click();
+    }
+  </script>
 
 </body>
 </html>
