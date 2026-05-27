@@ -362,10 +362,10 @@ Big Data Analytics"></textarea>
 
         <label>輸出需求</label>
         <div class="checkbox-group">
-          <label><input type="checkbox" id="needChinese" checked> 中文名稱</label>
-          <label><input type="checkbox" id="needExplain" checked> 名詞解釋</label>
-          <label><input type="checkbox" id="needApplication" checked> 應用情境</label>
-          <label><input type="checkbox" id="needReport" checked> 報告句型</label>
+          <label><input type="checkbox" id="needChinese"> 中文名稱</label>
+          <label><input type="checkbox" id="needExplain"> 名詞解釋</label>
+          <label><input type="checkbox" id="needApplication"> 應用情境</label>
+          <label><input type="checkbox" id="needReport"> 報告句型</label>
         </div>
 
         <label for="note">特殊需求</label>
@@ -383,7 +383,7 @@ Big Data Analytics"></textarea>
       <div>
         <div class="card">
           <h2>📊 完整度評分</h2>
-          <p>系統會根據關鍵字數量、應用領域、輸出需求與特殊需求計算輸入完整度。</p>
+          <p>系統會根據關鍵字是否收錄、應用領域、輸出需求與特殊需求計算完整度。</p>
           <div class="score" id="score">0 / 100</div>
           <p id="scoreText" class="score-text">尚未輸入資料</p>
         </div>
@@ -526,60 +526,66 @@ Big Data Analytics"></textarea>
     };
 
     function calculateScore(keywords, field, note) {
-      let score = 0;
-
-      if (keywords.length === 1) {
-        score += 15;
-      } else if (keywords.length >= 2 && keywords.length <= 3) {
-        score += 25;
-      } else if (keywords.length >= 4 && keywords.length <= 6) {
-        score += 32;
-      } else if (keywords.length >= 7) {
-        score += 40;
+      if (keywords.length === 0) {
+        return {
+          canScore: true,
+          score: 0,
+          unrecognized: []
+        };
       }
+
+      const unrecognized = keywords.filter(keyword => !database[keyword]);
+
+      if (unrecognized.length > 0) {
+        return {
+          canScore: false,
+          score: null,
+          unrecognized: unrecognized
+        };
+      }
+
+      let score = 60;
 
       if (field !== "") {
-        score += 20;
-      }
-
-      let optionCount = 0;
-
-      if (document.getElementById("needChinese").checked) optionCount++;
-      if (document.getElementById("needExplain").checked) optionCount++;
-      if (document.getElementById("needApplication").checked) optionCount++;
-      if (document.getElementById("needReport").checked) optionCount++;
-
-      if (optionCount === 1) {
-        score += 8;
-      } else if (optionCount === 2) {
-        score += 15;
-      } else if (optionCount === 3) {
-        score += 20;
-      } else if (optionCount === 4) {
-        score += 25;
-      }
-
-      const noteLength = note.trim().length;
-
-      if (noteLength > 0 && noteLength < 10) {
-        score += 5;
-      } else if (noteLength >= 10 && noteLength < 25) {
         score += 10;
-      } else if (noteLength >= 25) {
-        score += 15;
       }
 
-      return Math.min(score, 100);
+      if (document.getElementById("needChinese").checked) score += 10;
+      if (document.getElementById("needExplain").checked) score += 10;
+      if (document.getElementById("needApplication").checked) score += 10;
+      if (document.getElementById("needReport").checked) score += 10;
+
+      if (note.trim().length > 0) {
+        score += 10;
+      }
+
+      return {
+        canScore: true,
+        score: Math.min(score, 100),
+        unrecognized: []
+      };
     }
 
-    function updateScoreText(score) {
+    function updateScoreText(scoreResult) {
+      if (!scoreResult.canScore) {
+        document.getElementById("score").innerText = "無法評分";
+        document.getElementById("scoreText").innerText =
+          "以下詞彙尚未收錄於資料庫，無法進行完整度評分：" + scoreResult.unrecognized.join("、");
+        return;
+      }
+
+      const score = scoreResult.score;
+      document.getElementById("score").innerText = score + " / 100";
+
       let scoreText = "";
 
-      if (score < 50) {
-        scoreText = "資料較少，建議增加關鍵字、選擇應用領域或補充特殊需求。";
-      } else if (score < 75) {
-        scoreText = "資料基本完整，可再增加關鍵字數量或勾選更多輸出需求。";
-      } else if (score < 90) {
+      if (score === 0) {
+        scoreText = "尚未輸入資料，請先輸入至少一個學術關鍵字。";
+      } else if (score === 60) {
+        scoreText = "已輸入有效關鍵字，具備基本整理條件。";
+      } else if (score < 80) {
+        scoreText = "資料已有基本完整度，可再選擇應用領域或增加輸出需求。";
+      } else if (score < 100) {
         scoreText = "資料完整度良好，適合產生學術整理內容。";
       } else {
         scoreText = "資料非常完整，適合用於報告、簡報或考前複習。";
@@ -603,9 +609,8 @@ Big Data Analytics"></textarea>
         .map(k => k.trim())
         .filter(k => k !== "");
 
-      const score = calculateScore(keywords, field, note);
-      document.getElementById("score").innerText = score + " / 100";
-      updateScoreText(score);
+      const scoreResult = calculateScore(keywords, field, note);
+      updateScoreText(scoreResult);
 
       if (keywords.length === 0) {
         document.getElementById("result").innerText = "請至少輸入一個關鍵字。";
@@ -620,7 +625,13 @@ Big Data Analytics"></textarea>
       output += "一、輸入條件\n";
       output += "應用領域：" + (field || "未指定") + "\n";
       output += "特殊需求：" + (note || "無") + "\n";
-      output += "完整度評分：" + score + " / 100\n\n";
+
+      if (scoreResult.canScore) {
+        output += "完整度評分：" + scoreResult.score + " / 100\n\n";
+      } else {
+        output += "完整度評分：未收錄詞彙，無法評分\n";
+        output += "未收錄詞彙：" + scoreResult.unrecognized.join("、") + "\n\n";
+      }
 
       output += "二、關鍵字卡片\n\n";
 
@@ -654,6 +665,12 @@ Big Data Analytics"></textarea>
         "ANOVA\nRegression\nOptimization\nSupply Chain\nMachine Learning\nDeep Learning\nDecision Tree\nRandom Forest\nLinear Programming\nInventory Management\nForecasting\nQuality Control\nScheduling\nSimulation\nData Mining\nOperations Research\nProduction Management\nLogistics Management\nSmart Manufacturing\nBig Data Analytics";
 
       document.getElementById("field").value = "一般學術報告";
+
+      document.getElementById("needChinese").checked = true;
+      document.getElementById("needExplain").checked = true;
+      document.getElementById("needApplication").checked = true;
+      document.getElementById("needReport").checked = true;
+
       document.getElementById("note").value = "請用適合課堂報告的語氣說明";
 
       generateCards();
@@ -662,6 +679,10 @@ Big Data Analytics"></textarea>
     function clearForm() {
       document.getElementById("keywords").value = "";
       document.getElementById("field").value = "";
+      document.getElementById("needChinese").checked = false;
+      document.getElementById("needExplain").checked = false;
+      document.getElementById("needApplication").checked = false;
+      document.getElementById("needReport").checked = false;
       document.getElementById("note").value = "";
       document.getElementById("score").innerText = "0 / 100";
       document.getElementById("scoreText").innerText = "尚未輸入資料";
