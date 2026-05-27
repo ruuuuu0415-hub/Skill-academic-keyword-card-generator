@@ -29,3 +29,12 @@ Skill-academic-keyword-card-generator/
 ├── requirements.txt
 ├── keywords.txt
 └── skill.md
+
+## 網頁展示
+
+本作品已製作成可直接操作的 GitHub Pages 網頁工具。  
+使用者可輸入學術關鍵字，系統會自動產生中文名稱、名詞解釋、應用情境與報告可用句型。
+
+GitHub Pages 連結：
+
+https://ruuuuu0415-hub.github.io/Skill-academic-keyword-card-generator/
