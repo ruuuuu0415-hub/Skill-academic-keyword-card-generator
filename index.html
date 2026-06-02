@@ -169,7 +169,7 @@
     }
 
     textarea {
-      min-height: 190px;
+      min-height: 230px;
       resize: vertical;
     }
 
@@ -310,7 +310,7 @@
       <div class="intro-grid">
         <div class="mini-card">
           <strong>📝 Step 1｜輸入關鍵字</strong>
-          每行輸入一個學術名詞，可輸入中文、英文或別名，例如 ANOVA、變異數分析、工作研究。
+          每行輸入一個學術名詞，可輸入中文、英文或別名，例如 工作研究、標準工時、Work Study。
         </div>
         <div class="mini-card">
           <strong>🎯 Step 2｜選擇需求</strong>
@@ -330,16 +330,39 @@
 
         <label for="keywords">請輸入學術關鍵字，每行一個，可輸入中文、英文或別名</label>
         <textarea id="keywords" placeholder="例如：
-ANOVA
-變異數分析
 工作研究
-Method Study
+方法研究
+時間研究
+動作研究
+工作衡量
 標準工時
-Work Sampling
-ECRS
-5S
+標準時間
+工作抽樣
+評比係數
+寬放時間
+ECRS 改善原則
+5S 管理
 產線平衡
-Ergonomics"></textarea>
+人因工程
+人體工學
+流程程序圖
+流程過程圖
+作業程序圖
+雙手操作圖
+人機作業圖
+標準作業程序
+週期時間
+節拍時間
+瓶頸分析
+
+也可以輸入英文或別名：
+Work Study
+Method Study
+Time Study
+Standard Time
+Line Balancing
+Ergonomics
+SOP"></textarea>
 
         <label for="field">課程或應用領域</label>
         <select id="field">
@@ -608,7 +631,7 @@ Ergonomics"></textarea>
       "ECRS": {
         chinese: "ECRS 改善原則",
         english: "Eliminate, Combine, Rearrange, Simplify",
-        aliases: ["ECRS", "ecrs", "刪除合併重排簡化", "改善四原則"],
+        aliases: ["ECRS", "ecrs", "刪除合併重排簡化", "改善四原則", "ECRS改善原則"],
         explain: "ECRS 是改善作業流程的四項原則，包含刪除、合併、重排與簡化。",
         application: "常用於流程改善、方法研究、動作研究與生產效率提升。",
         report: "ECRS 原則可協助分析現有流程中的浪費，並提出更有效率的改善方案。"
@@ -616,7 +639,7 @@ Ergonomics"></textarea>
       "5S": {
         chinese: "5S 管理",
         english: "5S",
-        aliases: ["5S", "5s", "五常法", "整理整頓清掃清潔素養"],
+        aliases: ["5S", "5s", "五常法", "整理整頓清掃清潔素養", "5S管理"],
         explain: "5S 是現場管理方法，包含整理、整頓、清掃、清潔與素養，目的在於建立整潔有效率的工作環境。",
         application: "常用於工廠現場管理、辦公室管理、品質改善與安全管理。",
         report: "5S 管理能改善工作環境、降低浪費與提升作業效率，是現場改善的重要基礎。"
@@ -771,11 +794,19 @@ Ergonomics"></textarea>
         score += 10;
       }
 
-      if (document.getElementById("needChinese").checked) score += 10;
-      if (document.getElementById("needEnglish").checked) score += 10;
-      if (document.getElementById("needExplain").checked) score += 10;
-      if (document.getElementById("needApplication").checked) score += 10;
-      if (document.getElementById("needReport").checked) score += 10;
+      let optionCount = 0;
+
+      if (document.getElementById("needChinese").checked) optionCount++;
+      if (document.getElementById("needEnglish").checked) optionCount++;
+      if (document.getElementById("needExplain").checked) optionCount++;
+      if (document.getElementById("needApplication").checked) optionCount++;
+      if (document.getElementById("needReport").checked) optionCount++;
+
+      if (optionCount >= 1 && optionCount <= 2) {
+        score += 10;
+      } else if (optionCount >= 3) {
+        score += 20;
+      }
 
       if (note.trim().length > 0) {
         score += 10;
@@ -805,10 +836,12 @@ Ergonomics"></textarea>
         scoreText = "尚未輸入資料，請先輸入至少一個學術關鍵字。";
       } else if (score === 60) {
         scoreText = "已輸入有效關鍵字，具備基本整理條件。";
-      } else if (score < 80) {
-        scoreText = "資料已有基本完整度，可再選擇應用領域或增加輸出需求。";
-      } else if (score < 100) {
-        scoreText = "資料完整度良好，適合產生學術整理內容。";
+      } else if (score === 70) {
+        scoreText = "資料已有初步完整度，可再增加輸出需求或特殊需求。";
+      } else if (score === 80) {
+        scoreText = "資料完整度良好，可產生清楚的學術整理內容。";
+      } else if (score === 90) {
+        scoreText = "資料完整度高，適合用於報告或簡報整理。";
       } else {
         scoreText = "資料非常完整，適合用於報告、簡報或考前複習。";
       }
