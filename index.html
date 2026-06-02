@@ -38,7 +38,7 @@
     }
 
     header p {
-      max-width: 820px;
+      max-width: 780px;
       margin: 14px auto 0;
       font-size: 17px;
       line-height: 1.8;
@@ -297,6 +297,7 @@
       <p>
         本工具是一個學術關鍵字卡片產生器，協助使用者將課堂、報告或研究中常見的專業術語，
         快速整理成「中文名稱、英文術語、名詞解釋、應用情境、報告可用句型」。
+        使用者可以輸入中文、英文或常見別名。
       </p>
 
       <div class="tag-row">
@@ -309,7 +310,7 @@
       <div class="intro-grid">
         <div class="mini-card">
           <strong>📝 Step 1｜輸入關鍵字</strong>
-          每行輸入一個學術名詞，可輸入中文、英文或別名，例如 ANOVA、變異數分析、工作研究、Work Study。
+          每行輸入一個學術名詞，可輸入中文、英文或別名，例如 ANOVA、變異數分析、工作研究。
         </div>
         <div class="mini-card">
           <strong>🎯 Step 2｜選擇需求</strong>
@@ -332,13 +333,13 @@
 ANOVA
 變異數分析
 工作研究
-Work Study
-方法研究
-Time Study
+Method Study
 標準工時
+Work Sampling
 ECRS
 5S
-人因工程"></textarea>
+產線平衡
+Ergonomics"></textarea>
 
         <label for="field">課程或應用領域</label>
         <select id="field">
@@ -431,7 +432,7 @@ ECRS
       "Machine Learning": {
         chinese: "機器學習",
         english: "Machine Learning",
-        aliases: ["Machine Learning", "機器學習", "ML"],
+        aliases: ["Machine Learning", "機器學習", "machine learning", "ML"],
         explain: "讓電腦從資料中學習規則，並進行預測、分類或決策的人工智慧技術。",
         application: "可應用於需求預測、品質檢測、影像辨識與智慧製造。",
         report: "機器學習能從大量資料中找出潛在模式，進一步提升預測與決策能力。"
@@ -439,7 +440,7 @@ ECRS
       "Deep Learning": {
         chinese: "深度學習",
         english: "Deep Learning",
-        aliases: ["Deep Learning", "深度學習", "DL"],
+        aliases: ["Deep Learning", "深度學習", "deep learning", "DL"],
         explain: "機器學習的一個分支，透過多層神經網路學習資料中的複雜特徵。",
         application: "常用於影像辨識、自然語言處理、語音辨識與智慧製造檢測。",
         report: "深度學習適合處理高維度與非線性資料，可提升模型對複雜問題的表現。"
@@ -447,7 +448,7 @@ ECRS
       "Decision Tree": {
         chinese: "決策樹",
         english: "Decision Tree",
-        aliases: ["Decision Tree", "決策樹"],
+        aliases: ["Decision Tree", "決策樹", "decision tree"],
         explain: "一種以樹狀結構進行分類或預測的機器學習方法，透過條件分支將資料逐步分類。",
         application: "常用於分類問題、風險判斷、顧客分群與決策規則分析。",
         report: "決策樹可透過條件分支呈現資料分類邏輯，使模型結果較容易被理解與解釋。"
@@ -455,7 +456,7 @@ ECRS
       "Random Forest": {
         chinese: "隨機森林",
         english: "Random Forest",
-        aliases: ["Random Forest", "隨機森林"],
+        aliases: ["Random Forest", "隨機森林", "random forest"],
         explain: "由多棵決策樹組成的集成學習方法，透過多模型投票或平均提升預測穩定性。",
         application: "常用於分類、迴歸、特徵重要性分析與資料探勘。",
         report: "隨機森林透過整合多棵決策樹降低單一模型過度配適的風險，並提升預測準確度。"
@@ -463,7 +464,7 @@ ECRS
       "Linear Programming": {
         chinese: "線性規劃",
         english: "Linear Programming",
-        aliases: ["Linear Programming", "線性規劃", "LP"],
+        aliases: ["Linear Programming", "線性規劃", "linear programming", "LP"],
         explain: "在線性目標函數與線性限制條件下，尋找最佳解的數學規劃方法。",
         application: "常用於生產規劃、資源分配、運輸問題、排程與成本最小化問題。",
         report: "線性規劃可協助決策者在有限資源條件下，求得符合限制條件的最佳化方案。"
@@ -471,7 +472,7 @@ ECRS
       "Inventory Management": {
         chinese: "庫存管理",
         english: "Inventory Management",
-        aliases: ["Inventory Management", "庫存管理", "存貨管理"],
+        aliases: ["Inventory Management", "庫存管理", "存貨管理", "inventory management"],
         explain: "用來控制存貨數量、補貨時機與庫存成本的管理方法。",
         application: "常用於供應鏈管理、倉儲管理、需求預測與補貨決策。",
         report: "庫存管理的目的在於平衡缺貨風險與持有成本，以提升整體營運效率。"
@@ -479,7 +480,7 @@ ECRS
       "Forecasting": {
         chinese: "預測",
         english: "Forecasting",
-        aliases: ["Forecasting", "預測", "需求預測", "demand forecasting"],
+        aliases: ["Forecasting", "預測", "需求預測", "forecasting", "demand forecasting"],
         explain: "根據歷史資料、統計模型或機器學習方法推估未來趨勢與需求的分析方法。",
         application: "常用於銷售預測、需求預測、產能規劃、供應鏈決策與財務分析。",
         report: "預測分析可協助組織掌握未來需求變化，作為決策規劃與資源配置的重要依據。"
@@ -487,7 +488,7 @@ ECRS
       "Quality Control": {
         chinese: "品質管制",
         english: "Quality Control",
-        aliases: ["Quality Control", "品質管制", "品質管理", "QC"],
+        aliases: ["Quality Control", "品質管制", "品質管理", "quality control", "QC"],
         explain: "透過統計方法與管理工具監控產品或服務品質，使其符合規格與標準。",
         application: "常用於製造業、服務業、製程改善與異常檢測。",
         report: "品質管制可協助企業降低變異、提升產品一致性，並改善整體製程績效。"
@@ -495,7 +496,7 @@ ECRS
       "Scheduling": {
         chinese: "排程",
         english: "Scheduling",
-        aliases: ["Scheduling", "排程", "生產排程"],
+        aliases: ["Scheduling", "排程", "生產排程", "scheduling"],
         explain: "在有限資源與時間限制下，安排工作順序、機台使用或人員配置的決策方法。",
         application: "常用於生產排程、班表安排、專案管理、物流配送與服務系統管理。",
         report: "排程問題的核心在於有效安排作業順序，以降低延遲、等待時間或總完工時間。"
@@ -503,7 +504,7 @@ ECRS
       "Simulation": {
         chinese: "模擬",
         english: "Simulation",
-        aliases: ["Simulation", "模擬"],
+        aliases: ["Simulation", "模擬", "simulation"],
         explain: "透過建立模型模仿真實系統運作，以分析不同情境下的可能結果。",
         application: "常用於製造系統、排隊系統、供應鏈風險分析與決策評估。",
         report: "模擬方法可在不影響真實系統的情況下，評估不同策略對系統績效的影響。"
@@ -511,7 +512,7 @@ ECRS
       "Data Mining": {
         chinese: "資料探勘",
         english: "Data Mining",
-        aliases: ["Data Mining", "資料探勘", "數據挖掘"],
+        aliases: ["Data Mining", "資料探勘", "數據挖掘", "data mining"],
         explain: "從大量資料中找出隱藏規律、關聯、趨勢或有價值資訊的分析方法。",
         application: "常用於顧客分析、市場分群、異常偵測、推薦系統與商業智慧。",
         report: "資料探勘能協助研究者從大量資料中萃取有用資訊，進一步支援決策分析。"
@@ -519,7 +520,7 @@ ECRS
       "Operations Research": {
         chinese: "作業研究",
         english: "Operations Research",
-        aliases: ["Operations Research", "作業研究", "運籌學", "OR"],
+        aliases: ["Operations Research", "作業研究", "運籌學", "operations research", "OR"],
         explain: "運用數學模型、統計方法與最佳化技術解決管理與決策問題的學科。",
         application: "常用於排程、運輸、庫存、供應鏈、資源分配與服務系統設計。",
         report: "作業研究強調以量化方法分析複雜決策問題，並尋找具效率的解決方案。"
@@ -527,7 +528,7 @@ ECRS
       "Production Management": {
         chinese: "生產管理",
         english: "Production Management",
-        aliases: ["Production Management", "生產管理"],
+        aliases: ["Production Management", "生產管理", "production management"],
         explain: "規劃、組織與控制生產活動，以提升產能、品質、效率與交期表現的管理方法。",
         application: "常用於製造排程、產能規劃、物料管理、品質改善與成本控制。",
         report: "生產管理的目的在於有效整合人力、設備、物料與流程，以提升整體生產績效。"
@@ -535,7 +536,7 @@ ECRS
       "Work Study": {
         chinese: "工作研究",
         english: "Work Study",
-        aliases: ["Work Study", "工作研究", "工作研討"],
+        aliases: ["Work Study", "工作研究", "工作研討", "work study"],
         explain: "工作研究是用來分析與改善工作方法及作業時間的管理技術，主要包含方法研究與工作衡量。",
         application: "常用於製程改善、標準工時制定、人力配置、產線效率提升與作業流程優化。",
         report: "工作研究可透過方法分析與工時衡量，協助企業改善作業流程並提升生產效率。"
@@ -543,7 +544,7 @@ ECRS
       "Method Study": {
         chinese: "方法研究",
         english: "Method Study",
-        aliases: ["Method Study", "方法研究", "工作方法研究"],
+        aliases: ["Method Study", "方法研究", "工作方法研究", "method study"],
         explain: "方法研究是對現有作業方法進行系統化分析，以尋找更有效率、更安全且更經濟的工作方式。",
         application: "常用於改善作業流程、減少不必要動作、縮短加工時間與提升工作效率。",
         report: "方法研究可協助組織檢討現有作業程序，並透過流程改善降低浪費與提升效率。"
@@ -551,7 +552,7 @@ ECRS
       "Work Measurement": {
         chinese: "工作衡量",
         english: "Work Measurement",
-        aliases: ["Work Measurement", "工作衡量", "工作測定"],
+        aliases: ["Work Measurement", "工作衡量", "工作測定", "work measurement"],
         explain: "工作衡量是用來測定完成某項工作所需標準時間的方法。",
         application: "常用於標準工時制定、產能規劃、績效評估、人力需求估算與成本分析。",
         report: "工作衡量可建立合理的標準時間，作為生產排程、人員配置與績效管理的依據。"
@@ -559,7 +560,7 @@ ECRS
       "Time Study": {
         chinese: "時間研究",
         english: "Time Study",
-        aliases: ["Time Study", "時間研究", "時間測定"],
+        aliases: ["Time Study", "時間研究", "時間測定", "time study"],
         explain: "時間研究是透過觀察與計時，分析作業者完成工作所需時間，並建立標準工時的方法。",
         application: "常用於標準工時設定、生產效率分析、作業改善與產能估算。",
         report: "時間研究能透過實際觀測資料建立標準工時，進一步支援生產管理與效率改善。"
@@ -567,7 +568,7 @@ ECRS
       "Motion Study": {
         chinese: "動作研究",
         english: "Motion Study",
-        aliases: ["Motion Study", "動作研究", "動作分析"],
+        aliases: ["Motion Study", "動作研究", "動作分析", "motion study"],
         explain: "動作研究是分析作業者在工作中所進行的動作，目的在於消除不必要動作並改善工作方法。",
         application: "常用於工作站設計、作業姿勢改善、流程簡化與疲勞降低。",
         report: "動作研究可透過分析作業動作，找出浪費動作並提升作業效率與工作舒適度。"
@@ -575,7 +576,7 @@ ECRS
       "Standard Time": {
         chinese: "標準工時",
         english: "Standard Time",
-        aliases: ["Standard Time", "標準工時", "標準時間"],
+        aliases: ["Standard Time", "標準工時", "標準時間", "standard time"],
         explain: "標準工時是指在正常工作條件與合理作業速度下，完成某項工作所需的標準時間。",
         application: "常用於產能規劃、排程、人力配置、成本估算與績效評估。",
         report: "標準工時可作為生產計畫與績效管理的重要依據，協助企業提升作業控制能力。"
@@ -583,7 +584,7 @@ ECRS
       "Work Sampling": {
         chinese: "工作抽樣",
         english: "Work Sampling",
-        aliases: ["Work Sampling", "工作抽樣"],
+        aliases: ["Work Sampling", "工作抽樣", "work sampling"],
         explain: "工作抽樣是透過隨機觀察作業狀態，估計不同活動所占比例的工作衡量方法。",
         application: "常用於分析人員利用率、機器利用率、閒置時間與作業活動比例。",
         report: "工作抽樣可在不需連續觀察的情況下，估計作業活動比例並支援管理決策。"
@@ -591,7 +592,7 @@ ECRS
       "Performance Rating": {
         chinese: "評比係數",
         english: "Performance Rating",
-        aliases: ["Performance Rating", "評比係數", "績效評比"],
+        aliases: ["Performance Rating", "評比係數", "績效評比", "performance rating"],
         explain: "評比係數是時間研究中用來修正作業者工作速度差異的係數，使觀測時間轉換為正常時間。",
         application: "常用於時間研究、標準工時制定與作業績效評估。",
         report: "評比係數可用來調整作業者速度差異，使標準工時更具公平性與代表性。"
@@ -599,7 +600,7 @@ ECRS
       "Allowance": {
         chinese: "寬放時間",
         english: "Allowance",
-        aliases: ["Allowance", "寬放時間", "寬放"],
+        aliases: ["Allowance", "寬放時間", "寬放", "allowance"],
         explain: "寬放時間是標準工時中考量疲勞、個人需求與不可避免延誤所加入的補償時間。",
         application: "常用於標準工時制定、工作設計與人力排程。",
         report: "寬放時間可使標準工時更符合實際作業情況，避免工時設定過於嚴苛。"
@@ -623,7 +624,7 @@ ECRS
       "Line Balancing": {
         chinese: "產線平衡",
         english: "Line Balancing",
-        aliases: ["Line Balancing", "產線平衡", "生產線平衡"],
+        aliases: ["Line Balancing", "產線平衡", "生產線平衡", "line balancing"],
         explain: "產線平衡是將作業合理分配到各工作站，使各站作業時間盡量接近，以降低閒置與瓶頸。",
         application: "常用於裝配線設計、生產效率改善、瓶頸分析與產能提升。",
         report: "產線平衡可降低工作站間的等待時間，提升整體產線效率與產出穩定性。"
@@ -631,7 +632,7 @@ ECRS
       "Ergonomics": {
         chinese: "人因工程",
         english: "Ergonomics",
-        aliases: ["Ergonomics", "人因工程", "人體工學"],
+        aliases: ["Ergonomics", "人因工程", "人體工學", "ergonomics"],
         explain: "人因工程是研究人、機器與環境之間互動關係的學科，目的在於提升安全、舒適與效率。",
         application: "常用於工作站設計、工具設計、姿勢改善、疲勞降低與職業安全。",
         report: "人因工程可改善作業環境與工作姿勢，降低疲勞與傷害風險，並提升作業效率。"
@@ -639,7 +640,7 @@ ECRS
       "Process Chart": {
         chinese: "流程程序圖",
         english: "Process Chart",
-        aliases: ["Process Chart", "流程程序圖", "流程圖"],
+        aliases: ["Process Chart", "流程程序圖", "流程圖", "process chart"],
         explain: "流程程序圖是用符號表示作業、檢查、搬運、延遲與儲存等活動的分析工具。",
         application: "常用於方法研究、流程改善、作業分析與製程檢討。",
         report: "流程程序圖可視覺化呈現作業流程，協助找出不必要活動與改善機會。"
@@ -647,7 +648,7 @@ ECRS
       "Flow Process Chart": {
         chinese: "流程過程圖",
         english: "Flow Process Chart",
-        aliases: ["Flow Process Chart", "流程過程圖", "流動程序圖"],
+        aliases: ["Flow Process Chart", "流程過程圖", "流動程序圖", "flow process chart"],
         explain: "流程過程圖是詳細記錄產品、人員或物料在流程中各項活動的圖表。",
         application: "常用於分析搬運、等待、檢查與儲存等活動，作為流程改善依據。",
         report: "流程過程圖能協助研究者分析流程中各項活動比例，找出可刪減或改善的步驟。"
@@ -655,7 +656,7 @@ ECRS
       "Operation Process Chart": {
         chinese: "作業程序圖",
         english: "Operation Process Chart",
-        aliases: ["Operation Process Chart", "作業程序圖", "操作程序圖"],
+        aliases: ["Operation Process Chart", "作業程序圖", "操作程序圖", "operation process chart"],
         explain: "作業程序圖主要記錄作業與檢查兩類活動，用來呈現產品製造或服務流程的主要步驟。",
         application: "常用於製程分析、作業規劃、方法研究與流程簡化。",
         report: "作業程序圖可協助掌握主要作業與檢查步驟，進一步分析流程是否具改善空間。"
@@ -663,7 +664,7 @@ ECRS
       "Two-Handed Process Chart": {
         chinese: "雙手操作圖",
         english: "Two-Handed Process Chart",
-        aliases: ["Two-Handed Process Chart", "雙手操作圖", "雙手程序圖"],
+        aliases: ["Two-Handed Process Chart", "雙手操作圖", "雙手程序圖", "two-handed process chart"],
         explain: "雙手操作圖是分析左右手在作業過程中動作配合情形的工具。",
         application: "常用於手工作業改善、動作研究、工作站設計與操作效率提升。",
         report: "雙手操作圖可協助找出左右手閒置或不協調的情況，並改善作業動作安排。"
@@ -671,7 +672,7 @@ ECRS
       "Man-Machine Chart": {
         chinese: "人機作業圖",
         english: "Man-Machine Chart",
-        aliases: ["Man-Machine Chart", "人機作業圖", "人機圖"],
+        aliases: ["Man-Machine Chart", "人機作業圖", "人機圖", "man-machine chart"],
         explain: "人機作業圖是分析人員與機器在同一時間內工作與閒置狀態的工具。",
         application: "常用於機台配置、人員配置、閒置時間分析與生產效率改善。",
         report: "人機作業圖可協助分析人員與設備利用率，作為改善閒置時間與提升效率的依據。"
@@ -687,7 +688,7 @@ ECRS
       "Cycle Time": {
         chinese: "週期時間",
         english: "Cycle Time",
-        aliases: ["Cycle Time", "週期時間", "循環時間"],
+        aliases: ["Cycle Time", "週期時間", "循環時間", "cycle time"],
         explain: "週期時間是完成一個作業循環或產出一件產品所需的時間。",
         application: "常用於產能分析、瓶頸分析、產線平衡與流程改善。",
         report: "週期時間可用於評估作業效率與產線產能，是生產管理中的重要績效指標。"
@@ -695,7 +696,7 @@ ECRS
       "Takt Time": {
         chinese: "節拍時間",
         english: "Takt Time",
-        aliases: ["Takt Time", "節拍時間"],
+        aliases: ["Takt Time", "節拍時間", "takt time"],
         explain: "節拍時間是根據顧客需求計算出的生產節奏，用來衡量產線應以多快速度產出產品。",
         application: "常用於精實生產、產線設計、產能規劃與需求導向生產。",
         report: "節拍時間可協助企業使生產速度與顧客需求一致，降低過量生產與等待浪費。"
@@ -703,7 +704,7 @@ ECRS
       "Bottleneck Analysis": {
         chinese: "瓶頸分析",
         english: "Bottleneck Analysis",
-        aliases: ["Bottleneck Analysis", "瓶頸分析"],
+        aliases: ["Bottleneck Analysis", "瓶頸分析", "bottleneck analysis"],
         explain: "瓶頸分析是找出限制系統產出能力的關鍵作業或資源，並提出改善方案的方法。",
         application: "常用於產線改善、流程管理、排程、生產效率提升與服務系統改善。",
         report: "瓶頸分析可協助組織找出影響整體效率的限制點，並針對關鍵環節進行改善。"
@@ -716,7 +717,7 @@ ECRS
         .toLowerCase()
         .replace(/\s+/g, "")
         .replace(/　+/g, "")
-        .replace(/[（）()]/g, "");
+        .replace(/[()（）]/g, "");
     }
 
     function findEntry(input) {
@@ -887,16 +888,35 @@ ECRS
       document.getElementById("result").innerText = output;
     }
 
-    function getRandomExamples(count) {
-      const allKeys = Object.keys(database);
-      const shuffled = [...allKeys].sort(() => Math.random() - 0.5);
-      return shuffled.slice(0, count);
+    function getRandomDisplayName(canonicalName) {
+      const item = database[canonicalName];
+
+      const namePool = [
+        item.chinese,
+        item.english,
+        ...(item.aliases || [])
+      ].filter(Boolean);
+
+      const uniqueNames = [...new Set(namePool)];
+
+      return uniqueNames[Math.floor(Math.random() * uniqueNames.length)];
     }
 
     function loadExample() {
-      const randomKeywords = getRandomExamples(3);
+      const allKeys = Object.keys(database);
+      const selectedKeys = [];
 
-      document.getElementById("keywords").value = randomKeywords.join("\n");
+      while (selectedKeys.length < 3 && selectedKeys.length < allKeys.length) {
+        const randomKey = allKeys[Math.floor(Math.random() * allKeys.length)];
+
+        if (!selectedKeys.includes(randomKey)) {
+          selectedKeys.push(randomKey);
+        }
+      }
+
+      const randomExamples = selectedKeys.map(key => getRandomDisplayName(key));
+
+      document.getElementById("keywords").value = randomExamples.join("\n");
       document.getElementById("field").value = "一般學術報告";
 
       document.getElementById("needChinese").checked = true;
